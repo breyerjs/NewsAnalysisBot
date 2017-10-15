@@ -9,10 +9,10 @@ from Articles_From_Source import Articles_From_Source
 class Paper_Boy:
     def __init__(self):
         self.URIS = {
-            "Fox News": "foxnews.com",
+            #"Fox News": "foxnews.com",
             "New York Times": "nytimes.com",
-            "Washington Post": "washingtonpost.com",
-            "BBC": "bbc.com"
+            # "Washington Post": "washingtonpost.com",
+            # "BBC": "bbc.com"
         }
 
     def get_the_paper(self):

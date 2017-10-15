@@ -36,7 +36,7 @@ class Analyzer:
         for art in articles_from_source.get_articles():
             tokenized_words.extend(word_tokenize(art))
             tokenized_sentences.extend(sent_tokenize(art))
-        return _calc_flesch_kincaid_grade_level(tokenized_words, tokenized_sentences)
+        return self._calc_flesch_kincaid_grade_level(tokenized_words, tokenized_sentences)
 
     def _calc_flesch_kincaid_grade_level(self, tokenized_words, tokenized_sentences):
         words_per_sent = len(tokenized_words) / len(tokenized_sentences)

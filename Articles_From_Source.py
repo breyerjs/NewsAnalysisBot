@@ -4,18 +4,20 @@ Class representing a selection of articles from a source at a given time
 from Statistics import Statistics
 
 class Articles_From_Source:
-    def __init__(self, source):
+    def __init__(self, source_name):
         self.articles = []
-        self.titles = []
-        self.source = source
+        self.source_name = source_name
         # These are filled in by Analyzer.py
         self.statistics = Statistics()
 
     def add_article(self, article_json):
-        """ todo just the article text """
-        self.articles.append(article)
-        """ todo just the title """
-        self.titles.append(article)
+        clean_body = self.clean_article_body(article_json["body"])
+        self.articles.append(clean_body)
 
     def get_articles(self):
         return self.articles
+
+    def clean_article_body(self, body):
+        body = body.replace('\n', ' ')
+        print(body)
+        return body
