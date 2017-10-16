@@ -18,11 +18,17 @@ class Analyzer:
         self.list_of_articles_from_source = list_of_articles_from_source
         self.pronounciation_dict = cmudict.dict()
 
+    """
+    This is the feature event. Fills the given object with all of the stats available.
+    """
     def fill_stats(self):
         for articles_from_source in self.list_of_articles_from_source:
             articles_from_source.statistics.avg_word_count = self.get_avg_word_count(articles_from_source)
             articles_from_source.statistics.readability = self.get_readability_score(articles_from_source)
 
+    """
+    Below here, methods for getting the various stats
+    """
     def get_avg_word_count(self, articles_from_source):
         articles = articles_from_source.get_articles()
         total_length = sum([len(art.split()) for art in articles])
@@ -38,6 +44,9 @@ class Analyzer:
             tokenized_sentences.extend(sent_tokenize(art))
         return self._calc_flesch_kincaid_grade_level(tokenized_words, tokenized_sentences)
 
+    """
+    Private helpers
+    """
     def _calc_flesch_kincaid_grade_level(self, tokenized_words, tokenized_sentences):
         words_per_sent = len(tokenized_words) / len(tokenized_sentences)
         syllables_per_word = self._get_syllables_per_word(tokenized_words)

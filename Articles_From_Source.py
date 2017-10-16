@@ -9,6 +9,7 @@ class Articles_From_Source:
         self.source_name = source_name
         # These are filled in by Analyzer.py
         self.statistics = Statistics()
+        self.tweets = []
 
     def add_article(self, article_json):
         clean_body = self.clean_article_body(article_json["body"])

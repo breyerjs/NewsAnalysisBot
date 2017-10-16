@@ -7,7 +7,9 @@ from Analyzer import Analyzer
 
 class Director:
     def daily_news(self):
+        # get all articles
         paper_bundle = Paper_Boy().get_the_paper()
+        # add the statistics
         Analyzer(paper_bundle).fill_stats()
 
         return paper_bundle
