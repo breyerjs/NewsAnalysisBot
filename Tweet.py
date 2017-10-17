@@ -6,4 +6,4 @@
 class Tweet:
     def __init__(self, text, statistic_name):
         self.text = text
-        self.statistic = statistic_name
+        self.statistic_name = statistic_name

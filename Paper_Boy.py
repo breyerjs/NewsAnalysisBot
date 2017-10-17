@@ -9,10 +9,10 @@ from Articles_From_Source import Articles_From_Source
 class Paper_Boy:
     def __init__(self):
         self.URIS = {
-            #"Fox News": "foxnews.com",
+            "Fox News": "foxnews.com",
             "New York Times": "nytimes.com",
-            # "Washington Post": "washingtonpost.com",
-            # "BBC": "bbc.com"
+            "Washington Post": "washingtonpost.com",
+            "BBC": "bbc.com"
         }
 
     def get_the_paper(self):
@@ -23,7 +23,7 @@ class Paper_Boy:
 
     def _query_articles(self, source):
         event_registry = EventRegistry(apiKey = "e713df55-fd8f-42f2-9c45-b578f0656409")
-        q = QueryArticlesIter(sourceUri = event_registry.getNewsSourceUri(self.URIS[source]))
+        q = QueryArticlesIter(lang="eng", sourceUri=event_registry.getNewsSourceUri(self.URIS[source]))
         articles = Articles_From_Source(source)
         for article in q.execQuery(event_registry, maxItems=1):
             articles.add_article(article)

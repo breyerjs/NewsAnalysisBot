@@ -4,6 +4,7 @@ This is the "Main" class
 """
 from Paper_Boy import Paper_Boy
 from Analyzer import Analyzer
+from Writer import Writer
 
 class Director:
     def daily_news(self):
@@ -11,14 +12,11 @@ class Director:
         paper_bundle = Paper_Boy().get_the_paper()
         # add the statistics
         Analyzer(paper_bundle).fill_stats()
+        # write tweets
+        tweets = Writer(paper_bundle).write_all_tweets()
 
-        return paper_bundle
+        return tweets
 
 if __name__ == '__main__':
     d = Director()
-    news = d.daily_news()
-    for articles_from_source in news:
-        print("================")
-        print(articles_from_source.source_name)
-        print(articles_from_source.statistics.avg_word_count)
-        print(articles_from_source.statistics.readability)
+    print(d.daily_news())

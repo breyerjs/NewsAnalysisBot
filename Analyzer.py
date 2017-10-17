@@ -18,39 +18,27 @@ class Analyzer:
         self.list_of_articles_from_source = list_of_articles_from_source
         self.pronounciation_dict = cmudict.dict()
 
-    """
-    This is the feature event. Fills the given object with all of the stats available.
-    """
+    """ This is the feature event. Fills the given object with all of the stats available. """
     def fill_stats(self):
         for articles_from_source in self.list_of_articles_from_source:
-            articles_from_source.statistics.avg_word_count = self.get_avg_word_count(articles_from_source)
+            articles_from_source.statistics.words_per_sentence = self.get_avg_words_per_sentence(articles_from_source)
             articles_from_source.statistics.readability = self.get_readability_score(articles_from_source)
 
-    """
-    Below here, methods for getting the various stats
-    """
-    def get_avg_word_count(self, articles_from_source):
-        articles = articles_from_source.get_articles()
-        total_length = sum([len(art.split()) for art in articles])
-        num_articles = len(articles)
-        avg = total_length / num_articles
-        return self._round(avg)
+    """ Below here, methods for getting the various stats """
+    def get_avg_words_per_sentence(self, articles_from_source):
+        tokenized_words = articles_from_source.get_tokenized_words()
+        tokenized_sents = articles_from_source.get_tokenized_sents()
+        return self._round(len(tokenized_words) / len(tokenized_sents))
 
+    # Based on Flesch-kinkaid grade level
     def get_readability_score(self, articles_from_source):
-        tokenized_words = []
-        tokenized_sentences = []
-        for art in articles_from_source.get_articles():
-            tokenized_words.extend(word_tokenize(art))
-            tokenized_sentences.extend(sent_tokenize(art))
-        return self._calc_flesch_kincaid_grade_level(tokenized_words, tokenized_sentences)
-
-    """
-    Private helpers
-    """
-    def _calc_flesch_kincaid_grade_level(self, tokenized_words, tokenized_sentences):
-        words_per_sent = len(tokenized_words) / len(tokenized_sentences)
+        tokenized_words = articles_from_source.get_tokenized_words()
+        tokenized_sents = articles_from_source.get_tokenized_sents()
+        words_per_sent = len(tokenized_words) / len(tokenized_sents)
         syllables_per_word = self._get_syllables_per_word(tokenized_words)
         return (0.39*(words_per_sent)) + (11.8*(syllables_per_word)) - 15.59
+
+    """ Private helpers """
 
     def _get_syllables_per_word(self, tokenized_words):
         total_syllables = sum([self._get_num_syllables_in_word(word.lower()) for word in tokenized_words])
