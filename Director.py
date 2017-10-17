@@ -2,6 +2,7 @@
 The Director coordinates the publication schedule and manages all of the other classes
 This is the "Main" class
 """
+
 from Paper_Boy import Paper_Boy
 from Analyzer import Analyzer
 from Writer import Writer
@@ -19,4 +20,5 @@ class Director:
 
 if __name__ == '__main__':
     d = Director()
-    print(d.daily_news())
+    for tweet in d.daily_news():
+        print(tweet)

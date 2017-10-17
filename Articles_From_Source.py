@@ -1,6 +1,7 @@
 """
 Class representing a selection of articles from a source at a given time
 """
+
 from Statistics import Statistics
 from nltk.tokenize import sent_tokenize, word_tokenize
 
@@ -21,7 +22,6 @@ class Articles_From_Source:
 
     def clean_article_body(self, body):
         body = body.replace('\n', ' ')
-        print(body)
         return body
 
     def get_tokenized_words(self):

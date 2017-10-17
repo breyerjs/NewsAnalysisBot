@@ -6,9 +6,6 @@ Possible stats (per article):
     - Word Count
     - # of distinct words
     - Sentence length
-    - Readability / grade level: See Flesch-kinkaid + Fog Score
-    - Syllables / word + words / sent
-    - Rarest words used?
 """
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.corpus import cmudict
@@ -23,6 +20,8 @@ class Analyzer:
         for articles_from_source in self.list_of_articles_from_source:
             articles_from_source.statistics.words_per_sentence = self.get_avg_words_per_sentence(articles_from_source)
             articles_from_source.statistics.readability = self.get_readability_score(articles_from_source)
+            articles_from_source.statistics.appearances_of_trump = self.get_num_times_trump_appears(articles_from_source)
+            articles_from_source.statistics.appearances_of_pancakes = self.get_num_times_pancakes_appears(articles_from_source)
 
     """ Below here, methods for getting the various stats """
     def get_avg_words_per_sentence(self, articles_from_source):
@@ -36,7 +35,14 @@ class Analyzer:
         tokenized_sents = articles_from_source.get_tokenized_sents()
         words_per_sent = len(tokenized_words) / len(tokenized_sents)
         syllables_per_word = self._get_syllables_per_word(tokenized_words)
-        return (0.39*(words_per_sent)) + (11.8*(syllables_per_word)) - 15.59
+        return self._round((0.39*(words_per_sent)) + (11.8*(syllables_per_word)) - 15.59)
+
+    def get_num_times_trump_appears(self, articles_from_source):
+        return len([word for word in articles_from_source.get_tokenized_words() if word.lower() == "trump"])
+
+    def get_num_times_pancakes_appears(self, articles_from_source):
+        return len([word for word in articles_from_source.get_tokenized_words() if word.lower() == "pancakes" or word.lower() == "pancake"])
+
 
     """ Private helpers """
 

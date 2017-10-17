@@ -17,7 +17,8 @@ class Writer:
         """
         return [
             self.write_avg_words_per_sent(),
-            self.write_readability()
+            self.write_readability(),
+            self.write_appearances_of_trump_vs_pancakes()
         ]
 
     def write_avg_words_per_sent(self):
@@ -32,4 +33,12 @@ class Writer:
         for arts_from_source in self.list_of_articles_from_source:
             text += "\n" + arts_from_source.source_name + ": "
             text += str(arts_from_source.statistics.readability)
+        return text
+
+    def write_appearances_of_trump_vs_pancakes(self):
+        text = "Appearances of the words 'Trump' / 'Pancakes'"
+        for arts_from_source in self.list_of_articles_from_source:
+            text += "\n" + arts_from_source.source_name + ": "
+            text += str(arts_from_source.statistics.appearances_of_trump) + " / "
+            text += str(arts_from_source.statistics.appearances_of_pancakes)
         return text
