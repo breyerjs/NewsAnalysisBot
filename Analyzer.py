@@ -18,8 +18,8 @@ class Analyzer:
     """ This is the feature event. Fills the given object with all of the stats available. """
     def fill_stats(self):
         for articles_from_source in self.list_of_articles_from_source:
-            articles_from_source.statistics.words_per_sentence = self.get_avg_words_per_sentence(articles_from_source)
-            articles_from_source.statistics.readability = self.get_readability_score(articles_from_source)
+            #articles_from_source.statistics.words_per_sentence = self.get_avg_words_per_sentence(articles_from_source)
+            #articles_from_source.statistics.readability = self.get_readability_score(articles_from_source)
             articles_from_source.statistics.appearances_of_trump = self.get_num_times_trump_appears(articles_from_source)
             articles_from_source.statistics.appearances_of_pancakes = self.get_num_times_pancakes_appears(articles_from_source)
 

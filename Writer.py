@@ -16,8 +16,8 @@ class Writer:
             todo: add one Tweet() per statistic generated in Analyzer()
         """
         return [
-            self.write_avg_words_per_sent(),
-            self.write_readability(),
+            # self.write_avg_words_per_sent(),
+            # self.write_readability(),
             self.write_appearances_of_trump_vs_pancakes()
         ]
 

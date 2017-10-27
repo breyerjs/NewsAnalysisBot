@@ -5,17 +5,19 @@ He packages those into an Articles_From_Source object and returns them
 
 from eventregistry import *
 from Articles_From_Source import Articles_From_Source
-from datetime import datetime
+from Credentials import Credentials
+from datetime import datetime, timedelta
 
 class Paper_Boy:
     def __init__(self):
         self.URIS = {
-            "Fox News": "foxnews.com",
-            "New York Times": "nytimes.com",
-            "Washington Post": "washingtonpost.com",
+            "Fox": "foxnews.com",
+            "NYT": "nytimes.com",
+            "Wash. Post": "washingtonpost.com",
             "BBC": "bbc.com",
-            "Vice News": "news.vice.com",
+            #"Vice News": "news.vice.com",
         }
+        self.credentials = Credentials()
 
     def get_the_paper(self):
         paper_bundle = []
@@ -24,13 +26,13 @@ class Paper_Boy:
         return paper_bundle
 
     def _query_articles(self, source):
-        event_registry = EventRegistry(apiKey = "e713df55-fd8f-42f2-9c45-b578f0656409")
+        event_registry = EventRegistry(apiKey = self.credentials.event_registry_api_key)
         q = QueryArticlesIter(
             lang="eng",
-            dateStart=datetime.now(),
+            dateStart=datetime.now() - timedelta(1),
             sourceUri=event_registry.getNewsSourceUri(self.URIS[source]))
         articles = Articles_From_Source(source)
-        for article in q.execQuery(event_registry, maxItems=99):
+        for article in q.execQuery(event_registry, maxItems=500):
             articles.add_article(article)
         return articles
 
