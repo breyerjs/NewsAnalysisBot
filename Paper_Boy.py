@@ -29,10 +29,10 @@ class Paper_Boy:
         event_registry = EventRegistry(apiKey = self.credentials.event_registry_api_key)
         q = QueryArticlesIter(
             lang="eng",
-            dateStart=datetime.now() - timedelta(1),
+            dateStart=datetime.now() - timedelta(5),
             sourceUri=event_registry.getNewsSourceUri(self.URIS[source]))
         articles = Articles_From_Source(source)
-        for article in q.execQuery(event_registry, maxItems=500):
+        for article in q.execQuery(event_registry, maxItems=1000):
             articles.add_article(article)
         return articles
 
